@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import Header from './Header';
+
 const Login = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -17,7 +19,8 @@ const Login = ({ onLogin }) => {
     }
   };
 
-  return (
+  return (<>
+    <Header/>
     <div className='login-form'>
       <h2>Admin Login</h2>
       <form onSubmit={handleSubmit}>
@@ -26,6 +29,7 @@ const Login = ({ onLogin }) => {
         <button type="submit">Login</button>
       </form>
     </div>
+    </>
   );
 };
 

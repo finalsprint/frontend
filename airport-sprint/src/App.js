@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import Home from "./components/Home";
 import Admin from "./components/Admin";
 import Login from "./components/Login";
+import Arrivals from "./components/Arrivals";
+import Departures from "./components/Departures";
 
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
@@ -23,6 +25,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/admin" element={isLoggedIn ? <Admin /> : <Navigate to ="/login" />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/arrivals" element={<Arrivals />} />
+          <Route path="/departures" element={<Departures />} />
         </Routes>
 
       </Router>

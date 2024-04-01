@@ -1,5 +1,6 @@
 import React, {useState } from 'react';
 import Header from "./Header";
+import FlightTable from './FlightTable';
 
 const Admin = () => {
     const [formData, setFormData] = useState({
@@ -12,6 +13,8 @@ const Admin = () => {
         
     });
 
+    const [flights, setFlights] = useState([]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(prevState => ({
@@ -22,9 +25,9 @@ const Admin = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // form data for backend goes here??
-        console.log9(formData);
-        //resert form after submission
+        // form data for backend goes here?
+        console.log(formData);
+        
         setFormData({
             airline: '',
             flightNumber: '',
@@ -33,6 +36,8 @@ const Admin = () => {
             direction: '',
             gateNumber: ''
         });
+        const newFlight = { ...formData };
+        setFlights([...flights, newFlight]);
     };
 
     return (
@@ -70,8 +75,10 @@ const Admin = () => {
                 </label>
                 <button type="submit">Add Flight</button>
             </form>
+        <FlightTable flights={flights} />
         </div>
     )
 }
+
 
 export default Admin; 
