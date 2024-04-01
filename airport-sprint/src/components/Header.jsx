@@ -7,7 +7,9 @@ const Header = () => {
   
     <div className='header-container'>
 
-        <img src={require("./images/mapleview.png")} alt='airplane-logo' className='airport-logo'/>
+        <Link to='/'>
+          <img src={require("./images/mapleview.png")} alt='airplane-logo' className='airport-logo'/>
+        </Link>
 
         <hr className='separator' />
 
@@ -17,6 +19,7 @@ const Header = () => {
             <li><Link to='/arrivals'>ARRIVALS</Link></li>
             <li><Link to='/departures'>DEPARTURES</Link></li>
             <li><Link to='/destinations'>DESTINATIONS</Link></li>
+            <li><Link to='/admin'>ADMIN</Link></li>
             </ul>
         </nav>
         
