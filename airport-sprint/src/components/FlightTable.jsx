@@ -11,7 +11,8 @@ const Flight = ({ flights }) => {
             <th>Flight Number</th>
             <th>Date</th>
             <th>Time</th>
-            <th>Direction</th>
+            <th>Origin</th>
+            <th>Destination</th>
             <th>Gate Number</th>
           </tr>
         </thead>
@@ -22,7 +23,8 @@ const Flight = ({ flights }) => {
               <td>{flight.flightNumber}</td>
               <td>{flight.date}</td>
               <td>{flight.time}</td>
-              <td>{flight.direction}</td>
+              <td>{flight.origin}</td>
+              <td>{flight.destination}</td>
               <td>{flight.gateNumber}</td>
             </tr>
           ))}

@@ -6,6 +6,8 @@ import Admin from "./components/Admin";
 import Login from "./components/Login";
 import Arrivals from "./components/Arrivals";
 import Departures from "./components/Departures";
+import api from './api/axiosConfig';
+import { useEffect } from 'react';
 
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 
