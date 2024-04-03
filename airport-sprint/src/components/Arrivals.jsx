@@ -1,19 +1,83 @@
-import Header from "./Header"
-import FlightTable from "./FlightTable"
+import React, { useState, useEffect } from 'react';
+import Header from './Header';
+import axios from 'axios';
 
 const Arrivals = () => {
-    const sampleFlights = [
-        { airline: "Provincial Airlines", flightNumber: '43564', date: '2022-01-01', time: '10:00', origin: 'Churchill Falls(ZUM)', destination: "St.John's(YYT)", gateNumber: '3' }, 
-        { airline: 'Provincial Airlines', flightNumber: '68543', date: '2022-01-05', time: '9:00', origin: 'Deer Lake(YDF)', destination: "St.John's(YYT)", gateNumber: '1' },
-    ]
-    
-  return (
-    <div>
-      <Header />
-      <FlightTable flights={sampleFlights}/>
-      
-    </div>
-  )
-}
+    const [airports, setAirports] = useState([]);
+    const [selectedAirport, setSelectedAirport] = useState('');
+    const [flightDetails, setFlightDetails] = useState(null);
 
-export default Arrivals
+    useEffect(() => {
+        fetchAirports();
+    }, []);
+
+    const fetchAirports = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/airports');
+            setAirports(response.data);
+        } catch (error) {
+            console.error('Error fetching airports:', error);
+        }
+    };
+
+    const handleAirportChange = async (event) => {
+        const selectedAirportId = event.target.value;
+        setSelectedAirport(selectedAirportId);
+
+        try {
+            const response = await axios.get('http://localhost:8080/flightDetails');
+            setFlightDetails(response.data);
+        } catch (error) {
+            console.error('Error fetching flight details:', error);
+        }
+    };
+
+    return (
+        <div>
+            <Header />
+            <h3>Airports:</h3>
+
+            <select id='airportDropdown' onChange={handleAirportChange}>
+                <option value=''>Select an airport</option>
+                {airports.map((airport) => (
+                    <option key={airport.id} value={airport.id}>
+                        {airport.name}
+                    </option>
+                ))}
+            </select>
+            {selectedAirport &&  flightDetails &&(
+                <div>
+                <h2>Flight Details</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Arrival Gate</th>
+                            <th>Departure Gate</th>
+                            <th>Arrival Time</th>
+                            <th>Departure Time</th>
+                            <th>Flight Number</th>
+                            <th>Flight Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{flightDetails.arrivalGate}</td>
+                            <td>{flightDetails.departureGate}</td>
+                            <td>{flightDetails.arrivalTime}</td>
+                            <td>{flightDetails.departureTime}</td>
+                            <td>{flightDetails.flightNumber}</td>
+                            <td>{flightDetails.flightStatus}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+                
+            )}
+
+
+        </div>
+    );
+};
+
+export default Arrivals;

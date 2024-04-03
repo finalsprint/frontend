@@ -81,6 +81,27 @@ code {
   width: 100%; 
 }
 
+/* Arrivals/Departures Page */
+.airport-title {
+  color: #4C5D6D;
+  margin-top: 20px;
+}
+
+#airportDropdown {
+  width: 400px;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+#airportDropdown option {
+  font-size: 16px;
+  background-color: white;
+}
+
+
 /* Admin Page */
 .admin-container {
   display: flex;
