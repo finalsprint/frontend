@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const Flight = ({ flights }) => {
   return (
@@ -12,6 +12,7 @@ const Flight = ({ flights }) => {
             <th>Date</th>
             <th>Time</th>
             <th>Origin</th>
+            <th>Origin Gate</th>
             <th>Destination</th>
             <th>Gate Number</th>
           </tr>
@@ -24,8 +25,9 @@ const Flight = ({ flights }) => {
               <td>{flight.date}</td>
               <td>{flight.time}</td>
               <td>{flight.origin}</td>
+              <td>{flight.depGate}</td>
               <td>{flight.destination}</td>
-              <td>{flight.gateNumber}</td>
+              <td>{flight.arrGate}</td>
             </tr>
           ))}
         </tbody>
