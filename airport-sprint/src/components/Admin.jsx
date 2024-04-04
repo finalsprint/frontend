@@ -19,6 +19,22 @@ const Admin = () => {
   const [airports, setAirports] = useState([]);
   const [departureGates, setDepartureGates] = useState([]);
   const [arrivalGates, setArrivalGates] = useState([]);
+  const [airlines, setAirlines] = useState([]);
+
+  useEffect(() => {
+    fetchAirlinesData();
+  }, []);
+
+  const fetchAirlinesData = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/airlines");
+      if (!response.ok) throw new Error("Failed to fetch airlines");
+      const data = await response.json();
+      setAirlines(data);
+    } catch (error) {
+      console.error("Error fetching airlines data:", error.message);
+    }
+  };
 
   useEffect(() => {
     fetchAirportsData();
@@ -89,7 +105,7 @@ const Admin = () => {
 
       <form className="admin-form" onSubmit={handleSubmit}>
         <h3>Add a Flight</h3>
-        <label>
+        {/* <label>
           Airline:
           <input
             type="text"
@@ -97,6 +113,23 @@ const Admin = () => {
             value={formData.airline}
             onChange={handleChange}
           />
+        </label> */}
+        <label>
+          Airline:
+          <select
+            name="airline"
+            value={formData.airline}
+            onChange={handleChange}
+          >
+            <option value="" disabled>
+              Select An Airline
+            </option>
+            {airlines.map((airline) => (
+              <option key={airline.id} value={airline.id}>
+                {airline.name}
+              </option>
+            ))}
+          </select>
         </label>
         <label>
           Flight Number:
@@ -157,6 +190,24 @@ const Admin = () => {
             ))}
           </select>
         </label>
+
+        {/* <label>
+          Airline:
+          <select
+            name="airline"
+            value={formData.airline}
+            onChange={handleChange}
+          >
+            <option value="" disabled>
+              Select An Airline
+            </option>
+            {airlines.map((airline) => (
+              <option key={airline.id} value={airline.id}>
+                {airline.name}
+              </option>
+            ))}
+          </select>
+        </label> */}
 
         {/* Destination Dropdown */}
         <label>
