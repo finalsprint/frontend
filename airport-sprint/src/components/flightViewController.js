@@ -11,7 +11,7 @@ const flightStatusColor = () => {
         cell[i].style.color = "rgb(230, 130, 0)";
       }
       if (cell[i].textContent === "ON TIME") {
-        cell[i].style.color = "black";
+        cell[i].style.color = "green";
       }
     }
   });
