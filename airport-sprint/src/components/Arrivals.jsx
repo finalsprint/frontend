@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import axios from "axios";
+import { flightStatusColor } from "./flightViewController";
 
 const Arrivals = () => {
   const [airports, setAirports] = useState([]);
@@ -34,6 +35,8 @@ const Arrivals = () => {
       console.error("Error fetching flight details:", error);
     }
   };
+
+  flightStatusColor({ flightDetails });
 
   return (
     <div>
@@ -75,8 +78,8 @@ const Arrivals = () => {
                   <td>{flight.departureTime}</td>
                   <td>{flight.departureGate.gateNumber}</td>
                   <td>{flight.arrivalTime}</td>
-                  <td>{flight.arrivalGate.gateNumber}</td>
-                  <td>{flight.flightStatus}</td>
+                  <td>{flight.arrivalGate.gateNumber}</td>{" "}
+                  <td className="status">{flight.flightStatus}</td>
                 </tr>
               ))}
             </tbody>

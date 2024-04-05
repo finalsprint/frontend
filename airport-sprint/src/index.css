@@ -245,7 +245,8 @@ code {
 
 .flight-table th {
   background-color: #f2f2f2;
-  font-weight: normal;
+  font-weight: bold;
+  text-align: center;
 }
 
 .flight-table td {
