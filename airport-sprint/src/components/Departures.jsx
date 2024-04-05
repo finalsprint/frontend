@@ -76,9 +76,9 @@ const Departures = () => {
                   <td>{flight.flightNumber}</td>
                   <td>{flight.destinationAirport.name}</td>
                   <td>{flight.departureTime}</td>
-                  <td>{flight.departureGate.gateNumber}</td>{" "}
+                  <td>{flight.departureGate.gateNumber}</td>
                   <td>{flight.arrivalTime}</td>
-                  <td>{flight.arrivalGate.gateNumber}</td>{" "}
+                  <td>{flight.arrivalGate.gateNumber}</td>
                   <td className="status">{flight.flightStatus}</td>
                 </tr>
               ))}
