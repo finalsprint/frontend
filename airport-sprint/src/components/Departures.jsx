@@ -38,10 +38,11 @@ const Departures = () => {
   return (
     <div>
       <Header />
-      <h2>DEPARTURES</h2>
+      <h1 className="airport-title">Departures</h1>
       <br />
-      <h3>Airports:</h3>
+      <h5 className="dropdown-title">Please select an airport:</h5>
 
+      <div className="airport-dropdown-container">
       <select id="airportDropdown" onChange={handleAirportChange}>
         <option value="">Select an airport</option>
         {airports.map((airport) => (
@@ -50,9 +51,10 @@ const Departures = () => {
           </option>
         ))}
       </select>
+      </div>
       {selectedAirport && flightDetails.length > 0 && (
         <div>
-          <h2>Flight Details</h2>
+          <h5 className="airport-title">Flight Details</h5>
           <table className="flight-table">
             <thead>
               <tr>

@@ -37,3 +37,4 @@ const Flight = ({ flights }) => {
 };
 
 export default Flight;
+

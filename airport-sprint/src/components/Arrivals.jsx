@@ -38,10 +38,11 @@ const Arrivals = () => {
   return (
     <div>
       <Header />
-      <h2>ARRIVALS</h2>
+      <h1 className="airport-title">Arrivals</h1>
       <br />
-      <h3>Airports:</h3>
+      <h5 className="dropdown-title">Please select an airport:</h5>
 
+    <div className="airport-dropdown-container">
       <select id="airportDropdown" onChange={handleAirportChange}>
         <option value="">Select an airport</option>
         {airports.map((airport) => (
@@ -50,9 +51,10 @@ const Arrivals = () => {
           </option>
         ))}
       </select>
+      </div>
       {selectedAirport && flightDetails.length > 0 && (
         <div>
-          <h2>Flight Details</h2>
+          <h5 className="airport-title">Flight Details</h5>
           <table className="flight-table">
             <thead>
               <tr>
@@ -71,9 +73,9 @@ const Arrivals = () => {
                   <td>{flight.flightNumber}</td>
                   <td>{flight.originAirport.name}</td>
                   <td>{flight.departureTime}</td>
-                  <td>{flight.departureGate.gateNumber}</td>{" "}
+                  <td>{flight.departureGate.gateNumber}</td>
                   <td>{flight.arrivalTime}</td>
-                  <td>{flight.arrivalGate.gateNumber}</td>{" "}
+                  <td>{flight.arrivalGate.gateNumber}</td>
                   <td>{flight.flightStatus}</td>
                 </tr>
               ))}
