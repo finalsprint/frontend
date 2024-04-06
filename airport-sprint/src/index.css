@@ -208,7 +208,8 @@ code {
   font-size: 16px;
 }
 
-.login-form button {
+.login-form button, 
+.reservation-form button {
   width: 100%;
   padding: 10px;
   background-color: #8C0A53;
