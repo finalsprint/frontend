@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import Axios from "axios";
 import Header from "./Header";
@@ -8,14 +6,14 @@ import FlightTable from "./FlightTable";
 const Admin = () => {
   const [formData, setFormData] = useState({
     airline: "",
-    originAirport: "", // Updated field name
-    destinationAirport: "", // Updated field name
+    originAirport: "",
+    destinationAirport: "",
     flightNumber: "",
     departureTime: "",
     arrivalTime: "",
     flightStatus: "",
     departureGate: "",
-    arrivalGate: ""
+    arrivalGate: "",
   });
 
   const [flights, setFlights] = useState([]);
@@ -49,7 +47,7 @@ const Admin = () => {
 
   useEffect(() => {
     if (formData.originAirport) {
-      fetchGates(formData.originAirport, setDepartureGates);
+      fetchOriginGates(formData.originAirport, setDepartureGates);
     } else {
       setDepartureGates([]); // Reset departureGates when originAirport is not selected
     }
@@ -57,17 +55,16 @@ const Admin = () => {
 
   useEffect(() => {
     if (formData.destinationAirport) {
-      fetchGates(formData.destinationAirport, setArrivalGates);
+      fetchArrivalGates(formData.destinationAirport, setArrivalGates);
     } else {
       setArrivalGates([]); // Reset arrivalGates when destinationAirport is not selected
     }
   }, [formData.destinationAirport]);
 
-  const fetchGates = async (airportId, setState) => {
+  const fetchOriginGates = async (airportId, setState) => {
     try {
-      const response = await Axios.get(
-        `http://localhost:8080/gates/${airportId}`
-      );
+      const url = `http://localhost:8080/gates/origin-airport/${airportId}`;
+      const response = await Axios.get(url);
       console.log("Response from server:", response);
       console.log("Response.data:", response.data);
 
@@ -80,7 +77,27 @@ const Admin = () => {
       }
     } catch (error) {
       console.error("Error fetching gates:", error);
-      setState([]); // Set empty array if there's an error
+      setState([]); // Set to empty array if there's an error
+    }
+  };
+
+  const fetchArrivalGates = async (airportId, setState) => {
+    try {
+      const url = `http://localhost:8080/gates/destination-airport/${airportId}`;
+      const response = await Axios.get(url);
+      console.log("Response from server:", response);
+      console.log("Response.data:", response.data);
+
+      if (Array.isArray(response.data)) {
+        setState(response.data);
+      } else if (typeof response.data === "object") {
+        setState([response.data]);
+      } else {
+        throw new Error("Invalid gate data received");
+      }
+    } catch (error) {
+      console.error("Error fetching gates:", error);
+      setState([]); // Set to empty array if there's an error
     }
   };
 
@@ -93,16 +110,15 @@ const Admin = () => {
     }));
   };
 
-  const formatDateTime = (dateTimeString) => {
-    const [date, time] = dateTimeString.split(" ");
-    const [year, month, day] = date.split("-");
-    const [hour, mintute, second] = time.split(":");
-    return `${year}-${month}-${day} ${hour}:${mintute}:${second}`;
-  };
+  // const formatDateTime = (dateTimeString) => {
+  //   const [date, time] = dateTimeString.split(" ");
+  //   const [year, month, day] = date.split("-");
+  //   const [hour, mintute, second] = time.split(":");
+  //   return `${year}-${month}-${day} ${hour}:${mintute}:${second}`;
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Construct the request payload to match backend expectations
     const payload = {
       flightNumber: formData.flightNumber,
       airline: { id: parseInt(formData.airline, 10) },
@@ -110,10 +126,9 @@ const Admin = () => {
       destinationAirport: { id: parseInt(formData.destinationAirport, 10) },
       departureGate: { id: parseInt(formData.departureGate, 10) },
       arrivalGate: { id: parseInt(formData.arrivalGate, 10) },
-      departureTime: formatDateTime(formData.departureTime),
-      arrivalTime: formatDateTime(formData.arrivalTime),
+      departureTime: formData.departureTime,
+      arrivalTime: formData.arrivalTime,
       flightStatus: formData.flightStatus.toUpperCase(),
-      // Convert any other fields as needed
     };
 
     try {
@@ -192,7 +207,7 @@ const Admin = () => {
             value={formData.originAirport}
             onChange={(e) => {
               handleChange(e);
-              fetchGates(e.target.value, setDepartureGates);
+              fetchOriginGates(e.target.value, setDepartureGates);
             }}
           >
             <option value="" disabled>
@@ -213,7 +228,7 @@ const Admin = () => {
             value={formData.destinationAirport}
             onChange={(e) => {
               handleChange(e);
-              fetchGates(e.target.value, setArrivalGates);
+              fetchArrivalGates(e.target.value, setArrivalGates);
             }}
           >
             <option value="" disabled>
